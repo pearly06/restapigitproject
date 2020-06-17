@@ -1,0 +1,53 @@
+package InputOutPut;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class writeToFileUsingFileOutputStream {
+
+	public static void main(String[] args) {
+		FileOutputStream fos = null;
+		File file;
+		String mycontent = "This is my Data which needs" +
+			     " to be written into the file to be specified";
+		try {
+			//Specify the file path here
+			file = new File("D:\\programs\\testData\\writingFile\\WriteFile2.txt");
+			/* This logic will check whether the file
+			   * exists or not. If the file is not found
+			   * at the specified location it would create
+			   * a new file*/
+			if(!file.exists()) {
+				file.createNewFile();
+			}
+			
+			
+			fos = new FileOutputStream(file);
+			
+			
+			/*String content cannot be directly written into
+			   * a file. It needs to be converted into bytes
+			   */
+			
+			byte[] bytesArray = mycontent.getBytes();
+			fos.write(bytesArray);
+			fos.flush();
+			
+			System.out.println("File Written Successfully");
+			
+		}catch(IOException ioe) {
+			ioe.printStackTrace();
+		}finally {
+			try {
+				if(fos != null) {
+					fos.close();
+				}
+			}catch(IOException ioe) {
+				System.out.println("Error in closing the Stream");
+			}
+		}
+
+	}
+
+}
